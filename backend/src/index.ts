@@ -38,6 +38,8 @@ import warehouseRoutes from './routes/warehouses';
 import inventoryRoutes from './routes/inventory';
 import campaignRoutes from './routes/campaigns';
 import emailCampaignRoutes from './routes/email-campaigns';
+import sandboxRoutes from './routes/sandboxes';
+import changeSetRoutes from './routes/change-sets';
 
 // Load environment variables
 dotenv.config();
@@ -96,6 +98,8 @@ app.use('/api/warehouses', warehouseRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/campaigns', campaignRoutes);
 app.use('/api/email-campaigns', emailCampaignRoutes);
+app.use('/api/sandboxes', sandboxRoutes);
+app.use('/api/change-sets', changeSetRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
