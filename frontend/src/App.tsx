@@ -1,0 +1,49 @@
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
+import Layout from './components/layout/Layout';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import ObjectListPage from './pages/ObjectListPage';
+import RecordDetailPage from './pages/RecordDetailPage';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<HomePage />} />
+        <Route path="/objects/:objectName" element={<ObjectListPage />} />
+        <Route path="/objects/:objectName/:recordId" element={<RecordDetailPage />} />
+        <Route path="/objects/:objectName/new" element={<RecordDetailPage />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;

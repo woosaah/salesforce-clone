@@ -7,6 +7,7 @@ import { testConnection } from './config/database';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import authRoutes from './routes/auth';
 import tenantRoutes from './routes/tenants';
+import objectRoutes from './routes/objects';
 
 // Load environment variables
 dotenv.config();
@@ -34,6 +35,7 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tenants', tenantRoutes);
+app.use('/api/objects', objectRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
