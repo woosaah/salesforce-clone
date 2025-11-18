@@ -69,6 +69,14 @@ import fieldServiceRoutes from './routes/field-service';
 import knowledgeVersionRoutes from './routes/knowledge-versions';
 import einsteinPredictionRoutes from './routes/einstein-predictions';
 import streamingRoutes from './routes/streaming';
+import serviceConsoleRoutes from './routes/service-console';
+import platformEventsRoutes from './routes/platform-events';
+import customMetadataRoutes from './routes/custom-metadata';
+import flowBuilderRoutes from './routes/flow-builder';
+import externalServicesRoutes from './routes/external-services';
+import voiceSmsRoutes from './routes/voice-sms';
+import einsteinBotsRoutes from './routes/einstein-bots';
+import changeDataCaptureRoutes from './routes/change-data-capture';
 
 // Load environment variables
 dotenv.config();
@@ -158,6 +166,14 @@ app.use('/api/field-service', fieldServiceRoutes);
 app.use('/api/knowledge-versions', knowledgeVersionRoutes);
 app.use('/api/einstein-predictions', einsteinPredictionRoutes);
 app.use('/api/streaming', streamingRoutes);
+app.use('/api/service-console', serviceConsoleRoutes);
+app.use('/api/platform-events', platformEventsRoutes);
+app.use('/api/custom-metadata', customMetadataRoutes);
+app.use('/api/flows', flowBuilderRoutes);
+app.use('/api/external-services', externalServicesRoutes);
+app.use('/api/voice-sms', voiceSmsRoutes);
+app.use('/api/bots', einsteinBotsRoutes);
+app.use('/api/change-data-capture', changeDataCaptureRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
