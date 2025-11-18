@@ -168,6 +168,37 @@ class ApiService {
       throw new Error(response.data.error || 'Failed to delete record');
     }
   }
+
+  // Query endpoints
+  async executeQuery(query: string): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>('/query/execute', {
+      query,
+    });
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Query execution failed');
+  }
+
+  async getQueryHistory(params?: {
+    limit?: number;
+    offset?: number;
+  }): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>('/query/history', {
+      params,
+    });
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get query history');
+  }
+
+  async deleteQueryHistory(queryId: string): Promise<void> {
+    const response = await this.api.delete<ApiResponse>(`/query/history/${queryId}`);
+    if (!response.data.success) {
+      throw new Error(response.data.error || 'Failed to delete query history');
+    }
+  }
 }
 
 export const api = new ApiService();
