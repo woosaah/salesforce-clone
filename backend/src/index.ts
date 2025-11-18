@@ -40,6 +40,18 @@ import campaignRoutes from './routes/campaigns';
 import emailCampaignRoutes from './routes/email-campaigns';
 import sandboxRoutes from './routes/sandboxes';
 import changeSetRoutes from './routes/change-sets';
+import webFormRoutes from './routes/web-forms';
+import territoryRoutes from './routes/territories';
+import leadScoringRoutes from './routes/lead-scoring';
+import cpqRoutes from './routes/cpq';
+import communityRoutes from './routes/communities';
+import mobileConfigRoutes from './routes/mobile-config';
+import searchRoutes from './routes/search';
+import fileRoutes from './routes/files';
+import listViewRoutes from './routes/list-views';
+import calendarRoutes from './routes/calendar';
+import chatRoutes from './routes/chat';
+import omniChannelRoutes from './routes/omni-channel';
 
 // Load environment variables
 dotenv.config();
@@ -100,6 +112,18 @@ app.use('/api/campaigns', campaignRoutes);
 app.use('/api/email-campaigns', emailCampaignRoutes);
 app.use('/api/sandboxes', sandboxRoutes);
 app.use('/api/change-sets', changeSetRoutes);
+app.use('/api/web-forms', webFormRoutes);
+app.use('/api/territories', territoryRoutes);
+app.use('/api/lead-scoring', leadScoringRoutes);
+app.use('/api/cpq', cpqRoutes);
+app.use('/api/communities', communityRoutes);
+app.use('/api/mobile-config', mobileConfigRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/files', fileRoutes);
+app.use('/api/list-views', listViewRoutes);
+app.use('/api/calendar', calendarRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/omni-channel', omniChannelRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
