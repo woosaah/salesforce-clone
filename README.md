@@ -1,186 +1,451 @@
-# Salesforce Clone - Multi-Tenant CRM
+# Salesforce Clone - Enterprise CRM System
 
-A modern, modular CRM system built with multi-tenancy, custom objects, and enterprise-grade features.
+A comprehensive, production-ready multi-tenant CRM platform built with modern web technologies, featuring all core Salesforce modules plus advanced enterprise features.
 
-## Tech Stack
+## Features
 
-- **Backend**: Node.js + Express + TypeScript
-- **Database**: PostgreSQL with Row-Level Security (RLS)
+### Core CRM Modules
+- **Sales Cloud**: Complete opportunity management, lead tracking, and pipeline forecasting
+- **Service Cloud**: Case management, knowledge base, and SLA tracking
+- **Marketing Cloud**: Email campaigns, analytics, and marketing automation
+- **Commerce Cloud**: Product catalog, pricing, quoting, and order management
+
+### Enterprise Features
+- **Multi-Tenancy**: Complete tenant isolation with PostgreSQL Row-Level Security
+- **Reports & Dashboards**: Custom reports with 6 chart types and interactive dashboards
+- **Inventory Management**: Multi-warehouse tracking with batch/lot management
+- **Automation Engine**: Workflows, process automation, and approval processes
+- **Custom Objects**: Flexible JSONB-based data model for custom entities
+- **SOQL Query Engine**: Salesforce-compatible query language
+- **API Platform**: RESTful APIs with JWT authentication
+- **Field-Level Security**: Granular permission control
+- **Audit Trails**: Complete change tracking and history
+
+### Technical Stack
+- **Backend**: Node.js + TypeScript + Express
 - **Frontend**: React + TypeScript + Tailwind CSS
-- **Auth**: JWT tokens with bcrypt password hashing
-- **Containerization**: Docker & Docker Compose
+- **Database**: PostgreSQL 14+ with JSONB and RLS
+- **Containerization**: Docker + Docker Compose
+- **Production**: Nginx reverse proxy with health checks
 
-## Architecture
-
-### Multi-Tenancy
-- Complete data isolation using PostgreSQL Row-Level Security
-- Tenant context set per query
-- Subdomain-based tenant identification
-
-### Custom Objects & Fields
-- Metadata-driven architecture (objects_meta, fields_meta)
-- Generic JSONB storage (object_data)
-- Support for multiple field types
-- Dynamic schema creation
-
-### Security
-- JWT-based authentication
-- Row-Level Security policies on all tables
-- Password hashing with bcrypt
-- Tenant isolation at database level
-
-## Quick Start
+## Quick Start (Docker)
 
 ### Prerequisites
-- Docker & Docker Compose
-- Node.js 18+ (for local development)
+- Docker 20.10+
+- Docker Compose 2.0+
+- 4GB RAM minimum
 
-### Setup with Docker
+### 1. Clone and Configure
 
-1. **Clone the repository**
 ```bash
 git clone <repository-url>
 cd salesforce-clone
+cp .env.example .env
 ```
 
-2. **Start services**
+### 2. Update Environment Variables
+
+Edit `.env` and set:
+- `DB_PASSWORD`: Strong database password
+- `JWT_SECRET`: Random secret key (generate with `openssl rand -hex 32`)
+- `SMTP_*`: Email server credentials
+- Other settings as needed
+
+### 3. Start Services
+
 ```bash
-docker-compose up -d
+docker-compose -f docker-compose.prod.yml up -d
 ```
 
-3. **Run database migrations**
+### 4. Run Migrations and Seeds
+
 ```bash
-docker-compose exec backend npm run migrate
+# Run migrations
+docker-compose -f docker-compose.prod.yml exec backend npm run migrate
+
+# Seed demo data (optional)
+docker-compose -f docker-compose.prod.yml exec backend npm run seed:all
 ```
 
-4. **Seed demo data**
-```bash
-docker-compose exec backend npm run seed
-```
+### 5. Access the Application
 
-5. **Access the application**
-- Backend API: http://localhost:3000
-- Health check: http://localhost:3000/health
+- **Frontend**: http://localhost
+- **API**: http://localhost:3000
+- **Health Check**: http://localhost:3000/health
 
-### Local Development Setup
+### Default Credentials (After Seeding)
 
-1. **Install backend dependencies**
+- **Email**: admin@birdseed.test
+- **Password**: admin123
+
+## Manual Setup (Development)
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL 14+
+- npm or yarn
+
+### Backend Setup
+
 ```bash
 cd backend
 npm install
-```
-
-2. **Configure environment**
-```bash
 cp .env.example .env
+
 # Edit .env with your database credentials
-```
 
-3. **Start PostgreSQL** (via Docker or local installation)
-```bash
-docker-compose up -d postgres
-```
-
-4. **Run migrations**
-```bash
+# Run migrations
 npm run migrate
-```
 
-5. **Seed demo data**
-```bash
-npm run seed
-```
+# Seed demo data
+npm run seed:all
 
-6. **Start development server**
-```bash
+# Start development server
 npm run dev
 ```
 
-## API Endpoints
+The backend will start on http://localhost:3000
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+
+# Start development server
+npm run dev
+```
+
+The frontend will start on http://localhost:5173
+
+## Project Structure
+
+```
+salesforce-clone/
+├── backend/
+│   ├── src/
+│   │   ├── config/          # Database and app configuration
+│   │   ├── middleware/      # Authentication, validation
+│   │   ├── routes/          # API endpoints (30+ route files)
+│   │   ├── services/        # Business logic
+│   │   ├── database/        # Seed data scripts
+│   │   └── index.ts         # Express app entry point
+│   ├── migrations/          # Database migrations (18 files)
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   ├── pages/          # Page components
+│   │   ├── services/       # API clients
+│   │   └── App.tsx
+│   └── package.json
+├── docker/                  # Production Dockerfiles and configs
+├── scripts/                 # Utility scripts (backup, etc.)
+├── docker-compose.prod.yml  # Production Docker Compose
+└── .env.example            # Environment template
+```
+
+## Database Architecture
+
+### Multi-Tenant Design
+- Every table includes `tenant_id` foreign key
+- Row-Level Security (RLS) policies enforce tenant isolation
+- Session variable `app.current_tenant_id` set per request
+
+### Custom Objects (JSONB)
+- Flexible schema for custom entities
+- Field metadata stored in `custom_fields` table
+- Data stored in `object_data` table with JSONB column
+- Supports custom validation rules and picklists
+
+### Migrations
+18 migration files covering:
+1. Base schema (tenants, users, roles)
+2. Custom objects and fields
+3. Accounts, contacts, leads
+4. Opportunities and products
+5. Cases and knowledge base
+6. Workflows and automation
+7. Service Cloud
+8. Commerce Cloud
+9. SOQL saved queries
+10. Reports and dashboards
+11. Inventory management
+12. Marketing campaigns
+
+## API Documentation
 
 ### Authentication
+All API requests require JWT token in Authorization header:
 
-#### POST /api/auth/register
-Register a new tenant and admin user.
+```bash
+curl -H "Authorization: Bearer <token>" http://localhost:3000/api/accounts
+```
 
+### Main Endpoints
+
+**Authentication**
+- `POST /api/auth/register` - Register tenant and admin user
+- `POST /api/auth/login` - Login and get JWT token
+- `POST /api/auth/logout` - Logout
+
+**CRM Objects**
+- `GET|POST /api/accounts` - Accounts
+- `GET|POST /api/contacts` - Contacts
+- `GET|POST /api/leads` - Leads
+- `GET|POST /api/opportunities` - Opportunities
+- `GET|POST /api/cases` - Cases
+- `GET|POST /api/products` - Products
+
+**Custom Objects**
+- `POST /api/custom-objects` - Create custom object type
+- `GET|POST /api/object-data/:objectType` - Custom object records
+- `POST /api/custom-fields` - Add custom field
+
+**Reports & Analytics**
+- `GET|POST /api/reports` - Report management
+- `POST /api/reports/:id/execute` - Run report
+- `GET|POST /api/dashboards` - Dashboard management
+
+**Marketing**
+- `GET|POST /api/campaigns` - Campaign management
+- `GET|POST /api/email-campaigns` - Email campaigns
+- `POST /api/email-campaigns/:id/send` - Send email campaign
+
+**Inventory**
+- `GET|POST /api/warehouses` - Warehouse management
+- `GET|POST /api/inventory` - Inventory items
+- `POST /api/inventory/:id/movements` - Stock movements
+
+**Automation**
+- `GET|POST /api/workflows` - Workflow rules
+- `GET|POST /api/approval-processes` - Approval processes
+- `GET /api/automation/execute/:id` - Execute workflow
+
+**SOQL Query**
+- `POST /api/query/execute` - Execute SOQL query
+
+### Response Format
+
+Success (200):
 ```json
 {
-  "tenant_name": "My Company",
-  "subdomain": "mycompany",
-  "email": "admin@mycompany.com",
-  "password": "SecurePass123",
-  "first_name": "John",
-  "last_name": "Doe"
+  "data": [...],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "limit": 20
+  }
 }
 ```
 
-#### POST /api/auth/login
-Login with email and password.
-
+Error (4xx/5xx):
 ```json
 {
-  "email": "admin@birdseed.test",
-  "password": "admin123",
-  "subdomain": "birdseed" // optional
+  "error": "Error message",
+  "details": {}
 }
 ```
 
-#### GET /api/auth/me
-Get current user information (requires authentication).
+## Environment Variables
 
-Headers:
+See `.env.example` for complete list. Key variables:
+
+### Required
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` - Database connection
+- `JWT_SECRET` - JWT signing key (use strong random value)
+- `NODE_ENV` - Environment (development|production)
+- `PORT` - Backend server port (default: 3000)
+
+### Optional
+- `SMTP_*` - Email server configuration
+- `STORAGE_TYPE` - File storage (local|s3)
+- `REDIS_*` - Redis cache configuration
+- `SENTRY_DSN` - Error monitoring
+- `BACKUP_*` - Backup configuration
+
+## Development
+
+### Running Migrations
+
+```bash
+# Run all pending migrations
+npm run migrate
+
+# Create new migration
+# Add file to backend/migrations/ following naming convention
 ```
-Authorization: Bearer <jwt_token>
+
+### Seeding Data
+
+```bash
+# Seed all modules
+npm run seed:all
+
+# Seed specific modules
+npm run seed:base           # Base data (tenant, users)
+npm run seed:crm            # CRM data (accounts, contacts)
+npm run seed:service        # Service Cloud data
+npm run seed:commerce       # Commerce data
+npm run seed:automation     # Workflows and processes
+npm run seed:reports        # Reports and dashboards
+npm run seed:inventory      # Inventory data
+npm run seed:marketing      # Marketing campaigns
 ```
 
-### Tenants (Super Admin Only)
+### Building for Production
 
-#### GET /api/tenants
-List all tenants.
+```bash
+# Backend
+cd backend
+npm run build
 
-#### POST /api/tenants
-Create a new tenant.
-
-```json
-{
-  "tenant_name": "New Company",
-  "subdomain": "newco",
-  "subscription_tier": "professional",
-  "enabled_modules": ["sales", "service"]
-}
+# Frontend
+cd frontend
+npm run build
 ```
 
-## Database Schema
+## Production Deployment
 
-### Core Tables
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete production deployment checklist including:
+- Security hardening
+- SSL/HTTPS setup
+- Database optimization
+- Monitoring and logging
+- Backup automation
+- Performance tuning
 
-- **tenants**: Multi-tenant organizations
-- **tenant_settings**: Tenant-specific configuration
-- **users**: User accounts with authentication
-- **roles**: Role hierarchy for data access
-- **profiles**: Permission profiles
-- **object_permissions**: Object-level CRUD permissions
-- **field_permissions**: Field-level permissions
-- **record_types**: Record type definitions
-- **record_type_field_visibility**: Field visibility per record type
-- **objects_meta**: Custom object metadata
-- **fields_meta**: Custom field metadata
-- **object_data**: Generic JSONB storage for all records
+## Backup and Restore
 
-## Demo Tenant
+### Automated Backups
 
-The seed script creates a demo tenant:
+Backups run automatically via cron in production:
 
-- **Tenant**: Bird Seed Business
-- **Subdomain**: birdseed
-- **Admin Email**: admin@birdseed.test
-- **Password**: admin123
+```bash
+# View backup logs
+docker-compose -f docker-compose.prod.yml logs backup
 
-Standard objects with master record types:
-- Account
-- Contact
-- Asset
-- Product
+# Manual backup
+docker-compose -f docker-compose.prod.yml exec backup /app/scripts/backup.sh
+```
+
+Backups are stored in `/backups` (or `BACKUP_DIR`) with 7-day retention.
+
+### Restore from Backup
+
+```bash
+# List backups
+ls -lh /backups/
+
+# Restore specific backup
+pg_restore -h postgres -p 5432 -U crm_user -d crm_db -c /backups/backup_crm_db_YYYYMMDD_HHMMSS.dump
+```
+
+## Module Toggle
+
+Modules can be selectively enabled/disabled by:
+
+1. **Database**: Skip migration files for unwanted modules
+2. **Backend**: Comment out route registrations in `src/index.ts`
+3. **Frontend**: Remove corresponding components and routes
+
+Example - Disable Marketing Cloud:
+- Skip migration `018_create_marketing_cloud.sql`
+- Comment out in `src/index.ts`: `app.use('/api/campaigns', campaignRoutes);`
+- Remove marketing components from frontend
+
+## Performance Optimization
+
+### Database Indexing
+All foreign keys and frequently queried columns are indexed. Key indexes:
+- `tenant_id` on all tables
+- `object_type` on object_data
+- Email addresses for lookups
+- Date fields for filtering
+
+### Caching (Optional)
+Redis can be enabled for:
+- Session storage
+- Report result caching
+- SOQL query caching
+
+Set `REDIS_HOST` and `REDIS_PORT` in `.env` to enable.
+
+### Query Optimization
+- RLS policies use indexed `tenant_id`
+- JSONB columns have GIN indexes
+- Prepared statements prevent SQL injection
+- Connection pooling configured
+
+## Security Features
+
+- JWT-based authentication with expiration
+- Password hashing with bcrypt
+- SQL injection prevention (parameterized queries)
+- CSRF protection
+- XSS prevention (input sanitization)
+- CORS configuration
+- Rate limiting (optional)
+- Row-Level Security for tenant isolation
+- Audit logging for all changes
+
+## Monitoring
+
+### Health Checks
+
+```bash
+# Backend health
+curl http://localhost:3000/health
+
+# Response: {"status":"ok","timestamp":"..."}
+```
+
+### Logging
+
+Logs are output to stdout/stderr and can be viewed:
+
+```bash
+# All services
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Specific service
+docker-compose -f docker-compose.prod.yml logs -f backend
+```
+
+### Optional: Sentry Integration
+
+Set `SENTRY_DSN` in `.env` to enable error tracking and performance monitoring.
+
+## Troubleshooting
+
+### Database Connection Issues
+
+```bash
+# Check PostgreSQL is running
+docker-compose -f docker-compose.prod.yml ps postgres
+
+# View PostgreSQL logs
+docker-compose -f docker-compose.prod.yml logs postgres
+
+# Test connection
+docker-compose -f docker-compose.prod.yml exec postgres psql -U crm_user -d crm_db -c "SELECT 1;"
+```
+
+### Migration Failures
+
+```bash
+# Check current migration status
+docker-compose -f docker-compose.prod.yml exec backend npm run migrate
+
+# Roll back last migration (if supported)
+# Manually fix data and re-run
+```
+
+### Authentication Issues
+
+- Verify `JWT_SECRET` is set and consistent across restarts
+- Check token expiration (`JWT_EXPIRES_IN`)
+- Ensure system clocks are synchronized
 
 ## Development Scripts
 
@@ -198,57 +463,75 @@ npm start
 npm run migrate
 
 # Seed demo data
-npm run seed
+npm run seed:all
 
 # Run tests
 npm test
 ```
 
-## Project Structure
+## Contributing
 
-```
-salesforce-clone/
-├── backend/
-│   ├── src/
-│   │   ├── config/         # Database & app configuration
-│   │   ├── database/       # Migration runner & seeds
-│   │   ├── middleware/     # Auth, tenant context, error handling
-│   │   ├── routes/         # API route handlers
-│   │   ├── types/          # TypeScript type definitions
-│   │   ├── utils/          # JWT, password utilities
-│   │   └── index.ts        # Express app entry point
-│   ├── migrations/         # SQL migration files
-│   └── package.json
-├── frontend/
-│   └── src/
-├── docker/
-│   └── Dockerfile.backend
-├── docker-compose.yml
-└── README.md
-```
-
-## Success Criteria ✓
-
-- [x] All database tables created with migrations
-- [x] Row-Level Security policies enforce tenant isolation
-- [x] JWT authentication working
-- [x] User registration creates tenant + admin user
-- [x] Login returns JWT token
-- [x] Protected routes require authentication
-- [x] Tenant context middleware sets RLS
-- [x] Docker Compose setup for easy deployment
-- [x] Seed data for demo tenant
-
-## Next Steps
-
-Phase 2 will include:
-- Frontend React application
-- Standard objects (Account, Contact, Opportunity, etc.)
-- Custom object builder UI
-- Permission management UI
-- Data import/export
-- Reporting & dashboards
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see LICENSE file for details.
+
+## Support
+
+For issues, questions, or contributions, please open an issue on GitHub.
+
+## Acknowledgments
+
+Built with inspiration from Salesforce.com's enterprise CRM platform, reimagined as an open-source, self-hosted solution for businesses of all sizes.
+
+## Completed Phases
+
+### Phase 1-10: Core CRM Foundation
+- Multi-tenant architecture with PostgreSQL RLS
+- Custom objects and fields (JSONB-based)
+- Accounts, Contacts, Leads, Opportunities
+- Cases and Service Cloud
+- Products, Quotes, Orders (Commerce Cloud)
+- Workflows and automation engine
+- SOQL query engine with saved queries
+- Approval processes
+
+### Phase 11: Reports & Dashboards
+- Custom report builder (tabular, summary, matrix)
+- 6 chart types (bar, line, pie, donut, funnel, gauge)
+- Interactive dashboards with components
+- Report scheduling and subscriptions
+- Report snapshots
+
+### Phase 12: Inventory Management
+- Multi-warehouse tracking
+- Stock movements (Purchase, Sale, Transfer, Adjustment)
+- Batch and lot tracking with expiry dates
+- Low stock alerts
+- Inventory valuation
+
+### Phase 13: Marketing Cloud Lite
+- Campaign management with ROI tracking
+- Campaign members (Leads and Contacts)
+- Email campaigns with templates
+- Email analytics (opens, clicks, bounces)
+- Unsubscribe management
+- Email tracking links
+
+## Next Steps
+
+Future planned features:
+- Sandboxes (dev/test environments)
+- Change sets (deployment pipeline)
+- Field-level security enhancements
+- Sharing rules and role hierarchy
+- Chatter (social collaboration)
+- Duplicate detection and merge
+- Mobile app
+- Einstein Analytics integration
+- Third-party integrations (Slack, Zoom, etc.)
