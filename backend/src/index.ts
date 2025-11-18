@@ -16,6 +16,8 @@ import expenseRoutes from './routes/expenses';
 import leadRoutes from './routes/leads';
 import opportunityRoutes from './routes/opportunities';
 import productRoutes from './routes/products';
+import caseRoutes from './routes/cases';
+import knowledgeRoutes from './routes/knowledge';
 
 // Load environment variables
 dotenv.config();
@@ -52,6 +54,8 @@ app.use('/api/expenses', expenseRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/opportunities', opportunityRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/cases', caseRoutes);
+app.use('/api/knowledge', knowledgeRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
