@@ -10,6 +10,7 @@ import tenantRoutes from './routes/tenants';
 import objectRoutes from './routes/objects';
 import queryRoutes from './routes/query';
 import invoiceRoutes from './routes/invoices';
+import assetRoutes from './routes/assets';
 
 // Load environment variables
 dotenv.config();
@@ -40,6 +41,7 @@ app.use('/api/tenants', tenantRoutes);
 app.use('/api/objects', objectRoutes);
 app.use('/api/query', queryRoutes);
 app.use('/api/invoices', invoiceRoutes);
+app.use('/api/assets', assetRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

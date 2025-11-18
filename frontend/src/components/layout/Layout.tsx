@@ -91,6 +91,17 @@ const Layout: React.FC = () => {
               Invoices
             </Link>
 
+            <Link
+              to="/assets"
+              className={`block px-4 py-2 rounded-md text-sm font-medium ${
+                isActive('/assets')
+                  ? 'bg-primary-100 text-primary-700'
+                  : 'text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Assets
+            </Link>
+
             <div className="pt-4 pb-2">
               <div className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 Objects

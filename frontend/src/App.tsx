@@ -9,6 +9,8 @@ import RecordDetailPage from './pages/RecordDetailPage';
 import QueryConsolePage from './pages/QueryConsolePage';
 import InvoiceListPage from './pages/InvoiceListPage';
 import InvoiceDetailPage from './pages/InvoiceDetailPage';
+import AssetListPage from './pages/AssetListPage';
+import AssetDetailPage from './pages/AssetDetailPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -44,6 +46,8 @@ function App() {
         <Route path="/query" element={<QueryConsolePage />} />
         <Route path="/invoices" element={<InvoiceListPage />} />
         <Route path="/invoices/:invoiceId" element={<InvoiceDetailPage />} />
+        <Route path="/assets" element={<AssetListPage />} />
+        <Route path="/assets/:assetId" element={<AssetDetailPage />} />
         <Route path="/objects/:objectName" element={<ObjectListPage />} />
         <Route path="/objects/:objectName/:recordId" element={<RecordDetailPage />} />
         <Route path="/objects/:objectName/new" element={<RecordDetailPage />} />

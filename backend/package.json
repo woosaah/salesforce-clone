@@ -10,6 +10,7 @@
     "migrate": "node dist/database/migrate.js",
     "seed": "node dist/database/seed.js",
     "seed:invoices": "node dist/database/seed-invoices.js",
+    "seed:assets": "node dist/database/seed-assets.js",
     "test": "jest"
   },
   "dependencies": {

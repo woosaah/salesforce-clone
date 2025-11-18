@@ -267,6 +267,83 @@ class ApiService {
     }
     throw new Error(response.data.error || 'Failed to void invoice');
   }
+
+  // Asset endpoints
+  async getAssets(params?: {
+    limit?: number;
+    offset?: number;
+    status?: string;
+    asset_type?: string;
+  }): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>('/assets', { params });
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get assets');
+  }
+
+  async getAsset(assetId: string): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>(`/assets/${assetId}`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get asset');
+  }
+
+  async createAsset(assetData: any): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>('/assets', assetData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to create asset');
+  }
+
+  async updateAsset(assetId: string, assetData: any): Promise<any> {
+    const response = await this.api.put<ApiResponse<any>>(`/assets/${assetId}`, assetData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to update asset');
+  }
+
+  async deleteAsset(assetId: string): Promise<void> {
+    const response = await this.api.delete<ApiResponse>(`/assets/${assetId}`);
+    if (!response.data.success) {
+      throw new Error(response.data.error || 'Failed to delete asset');
+    }
+  }
+
+  async getAssetMaintenance(assetId: string): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>(`/assets/${assetId}/maintenance`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get maintenance records');
+  }
+
+  async createMaintenanceRecord(assetId: string, recordData: any): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>(`/assets/${assetId}/maintenance`, recordData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to create maintenance record');
+  }
+
+  async getAssetTransfers(assetId: string): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>(`/assets/${assetId}/transfers`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get transfer history');
+  }
+
+  async createAssetTransfer(assetId: string, transferData: any): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>(`/assets/${assetId}/transfers`, transferData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to create transfer');
+  }
 }
 
 export const api = new ApiService();
