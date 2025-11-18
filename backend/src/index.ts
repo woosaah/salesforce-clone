@@ -61,6 +61,14 @@ import lightningPageRoutes from './routes/lightning-pages';
 import topicRoutes from './routes/topics';
 import pathRoutes from './routes/paths';
 import macroRoutes from './routes/macros';
+import recentlyViewedRoutes from './routes/recently-viewed';
+import einsteinActivityRoutes from './routes/einstein-activity';
+import emailToCaseRoutes from './routes/email-to-case';
+import socialCustomerServiceRoutes from './routes/social-customer-service';
+import fieldServiceRoutes from './routes/field-service';
+import knowledgeVersionRoutes from './routes/knowledge-versions';
+import einsteinPredictionRoutes from './routes/einstein-predictions';
+import streamingRoutes from './routes/streaming';
 
 // Load environment variables
 dotenv.config();
@@ -142,6 +150,14 @@ app.use('/api/lightning-pages', lightningPageRoutes);
 app.use('/api/topics', topicRoutes);
 app.use('/api/paths', pathRoutes);
 app.use('/api/macros', macroRoutes);
+app.use('/api/recently-viewed', recentlyViewedRoutes);
+app.use('/api/einstein-activity', einsteinActivityRoutes);
+app.use('/api/email-to-case', emailToCaseRoutes);
+app.use('/api/social', socialCustomerServiceRoutes);
+app.use('/api/field-service', fieldServiceRoutes);
+app.use('/api/knowledge-versions', knowledgeVersionRoutes);
+app.use('/api/einstein-predictions', einsteinPredictionRoutes);
+app.use('/api/streaming', streamingRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
