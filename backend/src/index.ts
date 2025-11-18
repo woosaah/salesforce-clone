@@ -22,6 +22,9 @@ import slaRoutes from './routes/slas';
 import queueRoutes from './routes/queues';
 import serviceContractRoutes from './routes/service-contracts';
 import escalationRuleRoutes from './routes/escalation-rules';
+import solutionRoutes from './routes/solutions';
+import priceBookRoutes from './routes/price-books';
+import opportunityStageRoutes from './routes/opportunity-stages';
 
 // Load environment variables
 dotenv.config();
@@ -64,6 +67,9 @@ app.use('/api/slas', slaRoutes);
 app.use('/api/queues', queueRoutes);
 app.use('/api/service-contracts', serviceContractRoutes);
 app.use('/api/escalation-rules', escalationRuleRoutes);
+app.use('/api/solutions', solutionRoutes);
+app.use('/api/price-books', priceBookRoutes);
+app.use('/api/opportunity-stages', opportunityStageRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
