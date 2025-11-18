@@ -25,6 +25,10 @@ import escalationRuleRoutes from './routes/escalation-rules';
 import solutionRoutes from './routes/solutions';
 import priceBookRoutes from './routes/price-books';
 import opportunityStageRoutes from './routes/opportunity-stages';
+import workflowRoutes from './routes/workflows';
+import triggerRoutes from './routes/triggers';
+import approvalProcessRoutes from './routes/approval-processes';
+import emailTemplateRoutes from './routes/email-templates';
 
 // Load environment variables
 dotenv.config();
@@ -70,6 +74,10 @@ app.use('/api/escalation-rules', escalationRuleRoutes);
 app.use('/api/solutions', solutionRoutes);
 app.use('/api/price-books', priceBookRoutes);
 app.use('/api/opportunity-stages', opportunityStageRoutes);
+app.use('/api/workflows', workflowRoutes);
+app.use('/api/triggers', triggerRoutes);
+app.use('/api/approval-processes', approvalProcessRoutes);
+app.use('/api/email-templates', emailTemplateRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

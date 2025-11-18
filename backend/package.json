@@ -13,6 +13,7 @@
     "seed:assets": "node dist/database/seed-assets.js",
     "seed:sales": "node dist/database/seed-sales.js",
     "seed:service": "node dist/database/seed-service.js",
+    "seed:automation": "node dist/database/seed-automation.js",
     "test": "jest"
   },
   "dependencies": {
