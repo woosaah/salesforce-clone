@@ -13,6 +13,9 @@ import invoiceRoutes from './routes/invoices';
 import assetRoutes from './routes/assets';
 import purchaseOrderRoutes from './routes/purchase-orders';
 import expenseRoutes from './routes/expenses';
+import leadRoutes from './routes/leads';
+import opportunityRoutes from './routes/opportunities';
+import productRoutes from './routes/products';
 
 // Load environment variables
 dotenv.config();
@@ -46,6 +49,9 @@ app.use('/api/invoices', invoiceRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/purchase-orders', purchaseOrderRoutes);
 app.use('/api/expenses', expenseRoutes);
+app.use('/api/leads', leadRoutes);
+app.use('/api/opportunities', opportunityRoutes);
+app.use('/api/products', productRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

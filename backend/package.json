@@ -11,6 +11,7 @@
     "seed": "node dist/database/seed.js",
     "seed:invoices": "node dist/database/seed-invoices.js",
     "seed:assets": "node dist/database/seed-assets.js",
+    "seed:sales": "node dist/database/seed-sales.js",
     "test": "jest"
   },
   "dependencies": {
