@@ -52,6 +52,15 @@ import listViewRoutes from './routes/list-views';
 import calendarRoutes from './routes/calendar';
 import chatRoutes from './routes/chat';
 import omniChannelRoutes from './routes/omni-channel';
+import noteRoutes from './routes/notes';
+import tagRoutes from './routes/tags';
+import forecastingRoutes from './routes/forecasting';
+import translationRoutes from './routes/translations';
+import bigObjectRoutes from './routes/big-objects';
+import lightningPageRoutes from './routes/lightning-pages';
+import topicRoutes from './routes/topics';
+import pathRoutes from './routes/paths';
+import macroRoutes from './routes/macros';
 
 // Load environment variables
 dotenv.config();
@@ -124,6 +133,15 @@ app.use('/api/list-views', listViewRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/omni-channel', omniChannelRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/tags', tagRoutes);
+app.use('/api/forecasting', forecastingRoutes);
+app.use('/api/translations', translationRoutes);
+app.use('/api/big-objects', bigObjectRoutes);
+app.use('/api/lightning-pages', lightningPageRoutes);
+app.use('/api/topics', topicRoutes);
+app.use('/api/paths', pathRoutes);
+app.use('/api/macros', macroRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
