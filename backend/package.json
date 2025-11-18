@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "migrate": "node dist/database/migrate.js",
     "seed": "node dist/database/seed.js",
+    "seed:invoices": "node dist/database/seed-invoices.js",
     "test": "jest"
   },
   "dependencies": {

@@ -9,6 +9,7 @@ import authRoutes from './routes/auth';
 import tenantRoutes from './routes/tenants';
 import objectRoutes from './routes/objects';
 import queryRoutes from './routes/query';
+import invoiceRoutes from './routes/invoices';
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tenants', tenantRoutes);
 app.use('/api/objects', objectRoutes);
 app.use('/api/query', queryRoutes);
+app.use('/api/invoices', invoiceRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

@@ -199,6 +199,74 @@ class ApiService {
       throw new Error(response.data.error || 'Failed to delete query history');
     }
   }
+
+  // Invoice endpoints
+  async getInvoices(params?: {
+    limit?: number;
+    offset?: number;
+    status?: string;
+  }): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>('/invoices', { params });
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get invoices');
+  }
+
+  async getInvoice(invoiceId: string): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>(`/invoices/${invoiceId}`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get invoice');
+  }
+
+  async createInvoice(invoiceData: any): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>('/invoices', invoiceData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to create invoice');
+  }
+
+  async updateInvoice(invoiceId: string, invoiceData: any): Promise<any> {
+    const response = await this.api.put<ApiResponse<any>>(`/invoices/${invoiceId}`, invoiceData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to update invoice');
+  }
+
+  async deleteInvoice(invoiceId: string): Promise<void> {
+    const response = await this.api.delete<ApiResponse>(`/invoices/${invoiceId}`);
+    if (!response.data.success) {
+      throw new Error(response.data.error || 'Failed to delete invoice');
+    }
+  }
+
+  async recordPayment(invoiceId: string, paymentData: any): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>(`/invoices/${invoiceId}/payments`, paymentData);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to record payment');
+  }
+
+  async getInvoicePayments(invoiceId: string): Promise<any> {
+    const response = await this.api.get<ApiResponse<any>>(`/invoices/${invoiceId}/payments`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to get payments');
+  }
+
+  async voidInvoice(invoiceId: string): Promise<any> {
+    const response = await this.api.post<ApiResponse<any>>(`/invoices/${invoiceId}/void`);
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    }
+    throw new Error(response.data.error || 'Failed to void invoice');
+  }
 }
 
 export const api = new ApiService();
