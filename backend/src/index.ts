@@ -29,6 +29,7 @@ import workflowRoutes from './routes/workflows';
 import triggerRoutes from './routes/triggers';
 import approvalProcessRoutes from './routes/approval-processes';
 import emailTemplateRoutes from './routes/email-templates';
+import savedQueryRoutes from './routes/saved-queries';
 
 // Load environment variables
 dotenv.config();
@@ -78,6 +79,7 @@ app.use('/api/workflows', workflowRoutes);
 app.use('/api/triggers', triggerRoutes);
 app.use('/api/approval-processes', approvalProcessRoutes);
 app.use('/api/email-templates', emailTemplateRoutes);
+app.use('/api/saved-queries', savedQueryRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
