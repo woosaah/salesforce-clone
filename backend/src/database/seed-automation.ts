@@ -91,17 +91,7 @@ The Bird Seed Business Team</p>
         tenantId,
         'Opportunity Won Notification',
         'Congratulations on Closing {{{Opportunity.Name}}}!',
-        `<html>
-<body>
-<h2>Congratulations!</h2>
-<p>Great news! You have successfully closed the opportunity: <strong>{{{Opportunity.Name}}}</strong></p>
-<p>Amount: ${{{Opportunity.Amount}}}</p>
-<p>Account: {{{Account.Name}}}</p>
-<p>Close Date: {{{Opportunity.CloseDate}}}</p>
-<p>The invoice will be generated automatically and sent to the customer.</p>
-<p>Keep up the excellent work!</p>
-</body>
-</html>`,
+        '<html>\n<body>\n<h2>Congratulations!</h2>\n<p>Great news! You have successfully closed the opportunity: <strong>{{{Opportunity.Name}}}</strong></p>\n<p>Amount: ${{{Opportunity.Amount}}}</p>\n<p>Account: {{{Account.Name}}}</p>\n<p>Close Date: {{{Opportunity.CloseDate}}}</p>\n<p>The invoice will be generated automatically and sent to the customer.</p>\n<p>Keep up the excellent work!</p>\n</body>\n</html>',
         'Congratulations on closing {{{Opportunity.Name}}}! Amount: ${{{Opportunity.Amount}}}',
         'Workflow',
         true,

@@ -30,6 +30,14 @@ import triggerRoutes from './routes/triggers';
 import approvalProcessRoutes from './routes/approval-processes';
 import emailTemplateRoutes from './routes/email-templates';
 import savedQueryRoutes from './routes/saved-queries';
+import reportRoutes from './routes/reports';
+import reportFolderRoutes from './routes/report-folders';
+import dashboardRoutes from './routes/dashboards';
+import reportSubscriptionRoutes from './routes/report-subscriptions';
+import warehouseRoutes from './routes/warehouses';
+import inventoryRoutes from './routes/inventory';
+import campaignRoutes from './routes/campaigns';
+import emailCampaignRoutes from './routes/email-campaigns';
 
 // Load environment variables
 dotenv.config();
@@ -80,6 +88,14 @@ app.use('/api/triggers', triggerRoutes);
 app.use('/api/approval-processes', approvalProcessRoutes);
 app.use('/api/email-templates', emailTemplateRoutes);
 app.use('/api/saved-queries', savedQueryRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/report-folders', reportFolderRoutes);
+app.use('/api/dashboards', dashboardRoutes);
+app.use('/api/report-subscriptions', reportSubscriptionRoutes);
+app.use('/api/warehouses', warehouseRoutes);
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/campaigns', campaignRoutes);
+app.use('/api/email-campaigns', emailCampaignRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

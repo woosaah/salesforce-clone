@@ -41,7 +41,7 @@ router.post(
     // Get tenant by subdomain if provided
     let tenantId: string | undefined;
     if (subdomain) {
-      const tenants = await query<Tenant>(
+      const tenants = await query(
         'SELECT * FROM tenants WHERE subdomain = $1 AND is_active = true',
         [subdomain]
       );
@@ -59,12 +59,12 @@ router.post(
     // Find user by email (and tenant if subdomain provided)
     let users: User[];
     if (tenantId) {
-      users = await query<User>(
+      users = await query(
         'SELECT * FROM users WHERE email = $1 AND tenant_id = $2 AND is_active = true',
         [email, tenantId]
       );
     } else {
-      users = await query<User>(
+      users = await query(
         'SELECT * FROM users WHERE email = $1 AND is_active = true',
         [email]
       );
@@ -91,7 +91,7 @@ router.post(
     }
 
     // Get tenant
-    const tenants = await query<Tenant>(
+    const tenants = await query(
       'SELECT * FROM tenants WHERE tenant_id = $1',
       [user.tenant_id]
     );
@@ -171,7 +171,7 @@ router.post(
     } = req.body as RegisterRequest;
 
     // Check if subdomain already exists
-    const existingTenants = await query<Tenant>(
+    const existingTenants = await query(
       'SELECT * FROM tenants WHERE subdomain = $1',
       [subdomain]
     );
@@ -196,7 +196,7 @@ router.post(
       await transactionClient.query('BEGIN');
 
       // Create tenant
-      const tenantResult = await transactionClient.query<Tenant>(
+      const tenantResult = await transactionClient.query(
         `INSERT INTO tenants (tenant_name, subdomain, subscription_tier, enabled_modules)
          VALUES ($1, $2, $3, $4)
          RETURNING *`,
@@ -205,7 +205,7 @@ router.post(
       const tenant = tenantResult.rows[0];
 
       // Create admin profile
-      const profileResult = await transactionClient.query<Profile>(
+      const profileResult = await transactionClient.query(
         `INSERT INTO profiles (tenant_id, profile_name, is_system)
          VALUES ($1, $2, $3)
          RETURNING *`,
@@ -214,7 +214,7 @@ router.post(
       const profile = profileResult.rows[0];
 
       // Create admin user
-      const userResult = await transactionClient.query<User>(
+      const userResult = await transactionClient.query(
         `INSERT INTO users (tenant_id, username, email, password_hash, first_name, last_name, profile_id, is_active)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          RETURNING *`,

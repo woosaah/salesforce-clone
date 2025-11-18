@@ -137,7 +137,7 @@ export class SOQLTranslator {
     // Add JOINs for relationship fields
     const relationships = soqlFields.filter((f) => f.relationship);
     for (const rel of relationships) {
-      const alias = rel.relationship.toLowerCase();
+      const alias = rel.relationship?.toLowerCase() || "";
       fromClause += `
         LEFT JOIN object_data ${alias} ON
           ${alias}.record_id = (od.data->>'${rel.relationship}Id')::uuid

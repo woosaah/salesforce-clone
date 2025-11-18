@@ -273,7 +273,7 @@ For more information, contact our support team.`,
         true,
         'Published',
         1,
-        CURRENT_TIMESTAMP,
+        new Date(),
         userId
       ]
     );
@@ -325,7 +325,7 @@ Most delivery issues are resolved within 2-3 business days.`,
         true,
         'Published',
         1,
-        CURRENT_TIMESTAMP,
+        new Date(),
         userId
       ]
     );

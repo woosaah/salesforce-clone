@@ -15,6 +15,9 @@
     "seed:service": "node dist/database/seed-service.js",
     "seed:automation": "node dist/database/seed-automation.js",
     "seed:queries": "node dist/database/seed-queries.js",
+    "seed:reports": "node dist/database/seed-reports.js",
+    "seed:inventory": "node dist/database/seed-inventory.js",
+    "seed:marketing": "node dist/database/seed-marketing.js",
     "test": "jest"
   },
   "dependencies": {
