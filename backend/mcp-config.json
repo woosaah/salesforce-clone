@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "salesforce-clone-diagnostics": {
+      "command": "node",
+      "args": ["dist/mcp/server.js"],
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_NAME": "salesforce_clone",
+        "DB_USER": "postgres",
+        "DB_PASSWORD": "your_password_here"
+      },
+      "description": "MCP server for Salesforce Clone diagnostics and management"
+    }
+  }
+}
