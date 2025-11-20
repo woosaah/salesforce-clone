@@ -14,8 +14,18 @@ class ApiService {
   private api: AxiosInstance;
 
   constructor() {
+    // Dynamically determine API URL based on current hostname
+    const getApiUrl = () => {
+      if (import.meta.env.VITE_API_URL) {
+        return import.meta.env.VITE_API_URL;
+      }
+      // Use current hostname with backend port
+      const hostname = window.location.hostname;
+      return `http://${hostname}:3001/api`;
+    };
+
     this.api = axios.create({
-      baseURL: '/api',
+      baseURL: getApiUrl(),
       headers: {
         'Content-Type': 'application/json',
       },
