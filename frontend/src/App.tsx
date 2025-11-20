@@ -14,6 +14,13 @@ import AssetDetailPage from './pages/AssetDetailPage';
 import AdminObjectsPage from './pages/admin/AdminObjectsPage';
 import AdminObjectDetailPage from './pages/admin/AdminObjectDetailPage';
 import AdminFieldFormPage from './pages/admin/AdminFieldFormPage';
+import SettingsPage from './pages/admin/SettingsPage';
+import LeadSettingsPage from './pages/admin/LeadSettingsPage';
+import OpportunitySettingsPage from './pages/admin/OpportunitySettingsPage';
+import CaseSettingsPage from './pages/admin/CaseSettingsPage';
+import CampaignSettingsPage from './pages/admin/CampaignSettingsPage';
+import WorkflowSettingsPage from './pages/admin/WorkflowSettingsPage';
+import ReportSettingsPage from './pages/admin/ReportSettingsPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -53,9 +60,16 @@ function App() {
         <Route path="/assets/:assetId" element={<AssetDetailPage />} />
 
         {/* Admin Routes */}
+        <Route path="/admin/settings" element={<SettingsPage />} />
         <Route path="/admin/objects" element={<AdminObjectsPage />} />
         <Route path="/admin/objects/:objectId" element={<AdminObjectDetailPage />} />
         <Route path="/admin/objects/:objectId/fields/:fieldId" element={<AdminFieldFormPage />} />
+        <Route path="/admin/leads" element={<LeadSettingsPage />} />
+        <Route path="/admin/opportunities" element={<OpportunitySettingsPage />} />
+        <Route path="/admin/cases" element={<CaseSettingsPage />} />
+        <Route path="/admin/campaigns" element={<CampaignSettingsPage />} />
+        <Route path="/admin/workflows" element={<WorkflowSettingsPage />} />
+        <Route path="/admin/reports" element={<ReportSettingsPage />} />
 
         {/* Object Data Routes */}
         <Route path="/objects/:objectName" element={<ObjectListPage />} />

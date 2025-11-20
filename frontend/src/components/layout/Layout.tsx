@@ -109,6 +109,17 @@ const Layout: React.FC = () => {
             </div>
 
             <Link
+              to="/admin/settings"
+              className={`block px-4 py-2 rounded-md text-sm font-medium ${
+                isActive('/admin/settings') || location.pathname.startsWith('/admin/')
+                  ? 'bg-primary-100 text-primary-700'
+                  : 'text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              ⚙️ Settings
+            </Link>
+
+            <Link
               to="/admin/objects"
               className={`block px-4 py-2 rounded-md text-sm font-medium ${
                 isActive('/admin/objects')
@@ -116,7 +127,7 @@ const Layout: React.FC = () => {
                   : 'text-gray-700 hover:bg-gray-200'
               }`}
             >
-              Object Manager
+              🗂️ Object Manager
             </Link>
 
             <div className="pt-4 pb-2">
