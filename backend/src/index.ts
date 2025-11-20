@@ -77,6 +77,7 @@ import externalServicesRoutes from './routes/external-services';
 import voiceSmsRoutes from './routes/voice-sms';
 import einsteinBotsRoutes from './routes/einstein-bots';
 import changeDataCaptureRoutes from './routes/change-data-capture';
+import adminRoutes from './routes/admin';
 
 // Load environment variables
 dotenv.config();
@@ -174,6 +175,7 @@ app.use('/api/external-services', externalServicesRoutes);
 app.use('/api/voice-sms', voiceSmsRoutes);
 app.use('/api/bots', einsteinBotsRoutes);
 app.use('/api/change-data-capture', changeDataCaptureRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

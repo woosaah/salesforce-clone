@@ -11,6 +11,9 @@ import InvoiceListPage from './pages/InvoiceListPage';
 import InvoiceDetailPage from './pages/InvoiceDetailPage';
 import AssetListPage from './pages/AssetListPage';
 import AssetDetailPage from './pages/AssetDetailPage';
+import AdminObjectsPage from './pages/admin/AdminObjectsPage';
+import AdminObjectDetailPage from './pages/admin/AdminObjectDetailPage';
+import AdminFieldFormPage from './pages/admin/AdminFieldFormPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -48,6 +51,13 @@ function App() {
         <Route path="/invoices/:invoiceId" element={<InvoiceDetailPage />} />
         <Route path="/assets" element={<AssetListPage />} />
         <Route path="/assets/:assetId" element={<AssetDetailPage />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/objects" element={<AdminObjectsPage />} />
+        <Route path="/admin/objects/:objectId" element={<AdminObjectDetailPage />} />
+        <Route path="/admin/objects/:objectId/fields/:fieldId" element={<AdminFieldFormPage />} />
+
+        {/* Object Data Routes */}
         <Route path="/objects/:objectName" element={<ObjectListPage />} />
         <Route path="/objects/:objectName/:recordId" element={<RecordDetailPage />} />
         <Route path="/objects/:objectName/new" element={<RecordDetailPage />} />

@@ -104,6 +104,23 @@ const Layout: React.FC = () => {
 
             <div className="pt-4 pb-2">
               <div className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Administration
+              </div>
+            </div>
+
+            <Link
+              to="/admin/objects"
+              className={`block px-4 py-2 rounded-md text-sm font-medium ${
+                isActive('/admin/objects')
+                  ? 'bg-primary-100 text-primary-700'
+                  : 'text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              Object Manager
+            </Link>
+
+            <div className="pt-4 pb-2">
+              <div className="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 Objects
               </div>
             </div>
