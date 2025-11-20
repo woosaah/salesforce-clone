@@ -19,6 +19,36 @@ const SettingsPage: React.FC = () => {
 
   const categories: SettingCategory[] = [
     {
+      title: 'Users & Security',
+      description: 'Manage users, roles, permissions, and security settings',
+      items: [
+        {
+          title: 'Users',
+          description: 'Manage user accounts and access',
+          path: '/admin/users',
+          icon: '👥',
+        },
+        {
+          title: 'Roles',
+          description: 'Define role hierarchy for data access',
+          path: '/admin/roles',
+          icon: '🎭',
+        },
+        {
+          title: 'Permission Sets',
+          description: 'Grant additional permissions to users',
+          path: '/admin/permission-sets',
+          icon: '🔐',
+        },
+        {
+          title: 'Profiles',
+          description: 'Define base user permissions and settings',
+          path: '/admin/profiles',
+          icon: '👤',
+        },
+      ],
+    },
+    {
       title: 'Platform',
       description: 'Configure objects, fields, and data model',
       items: [

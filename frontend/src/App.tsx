@@ -21,6 +21,12 @@ import CaseSettingsPage from './pages/admin/CaseSettingsPage';
 import CampaignSettingsPage from './pages/admin/CampaignSettingsPage';
 import WorkflowSettingsPage from './pages/admin/WorkflowSettingsPage';
 import ReportSettingsPage from './pages/admin/ReportSettingsPage';
+import UsersPage from './pages/admin/UsersPage';
+import UserDetailPage from './pages/admin/UserDetailPage';
+import RolesPage from './pages/admin/RolesPage';
+import PermissionSetsPage from './pages/admin/PermissionSetsPage';
+import PermissionSetDetailPage from './pages/admin/PermissionSetDetailPage';
+import FieldLevelSecurityPage from './pages/admin/FieldLevelSecurityPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -70,6 +76,12 @@ function App() {
         <Route path="/admin/campaigns" element={<CampaignSettingsPage />} />
         <Route path="/admin/workflows" element={<WorkflowSettingsPage />} />
         <Route path="/admin/reports" element={<ReportSettingsPage />} />
+        <Route path="/admin/users" element={<UsersPage />} />
+        <Route path="/admin/users/:userId" element={<UserDetailPage />} />
+        <Route path="/admin/roles" element={<RolesPage />} />
+        <Route path="/admin/permission-sets" element={<PermissionSetsPage />} />
+        <Route path="/admin/permission-sets/:permissionSetId" element={<PermissionSetDetailPage />} />
+        <Route path="/admin/permission-sets/:permissionSetId/fields/:objectId" element={<FieldLevelSecurityPage />} />
 
         {/* Object Data Routes */}
         <Route path="/objects/:objectName" element={<ObjectListPage />} />
