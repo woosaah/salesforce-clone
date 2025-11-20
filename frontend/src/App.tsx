@@ -27,6 +27,10 @@ import RolesPage from './pages/admin/RolesPage';
 import PermissionSetsPage from './pages/admin/PermissionSetsPage';
 import PermissionSetDetailPage from './pages/admin/PermissionSetDetailPage';
 import FieldLevelSecurityPage from './pages/admin/FieldLevelSecurityPage';
+import SuperAdminDashboard from './pages/super-admin/SuperAdminDashboard';
+import TenantsPage from './pages/super-admin/TenantsPage';
+import CreateTenantPage from './pages/super-admin/CreateTenantPage';
+import TenantDetailPage from './pages/super-admin/TenantDetailPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -82,6 +86,12 @@ function App() {
         <Route path="/admin/permission-sets" element={<PermissionSetsPage />} />
         <Route path="/admin/permission-sets/:permissionSetId" element={<PermissionSetDetailPage />} />
         <Route path="/admin/permission-sets/:permissionSetId/fields/:objectId" element={<FieldLevelSecurityPage />} />
+
+        {/* Super Admin Routes */}
+        <Route path="/super-admin" element={<SuperAdminDashboard />} />
+        <Route path="/super-admin/tenants" element={<TenantsPage />} />
+        <Route path="/super-admin/tenants/new" element={<CreateTenantPage />} />
+        <Route path="/super-admin/tenants/:tenantId" element={<TenantDetailPage />} />
 
         {/* Object Data Routes */}
         <Route path="/objects/:objectName" element={<ObjectListPage />} />

@@ -81,6 +81,7 @@ import adminRoutes from './routes/admin';
 import userRoutes from './routes/users';
 import roleRoutes from './routes/roles';
 import permissionSetRoutes from './routes/permission-sets';
+import superAdminRoutes from './routes/super-admin';
 
 // Load environment variables
 dotenv.config();
@@ -182,6 +183,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/roles', roleRoutes);
 app.use('/api/permission-sets', permissionSetRoutes);
+app.use('/api/super-admin', superAdminRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
